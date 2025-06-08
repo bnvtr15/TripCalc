@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Itinerary - Trip Calc</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .itinerary-card {
+            background: #e0e0e0;
+            max-width: 1200px;
+            margin: 40px auto 0 auto;
+            padding: 32px 24px 32px 24px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .itinerary-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        .itinerary-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 18px;
+        }
+        .itinerary-form label {
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+        .itinerary-form input {
+            padding: 8px 12px;
+            font-size: 1.1rem;
+            border-radius: 4px;
+            border: 1px solid #888;
+            width: 220px;
+        }
+        .itinerary-btn {
+            background: #7c4dff;
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 0;
+            width: 220px;
+            margin-top: 10px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .itinerary-btn:hover {
+            background: #512da8;
+        }
+        .itinerary-table {
+            width: 100%;
+            margin-top: 32px;
+            border-collapse: collapse;
+        }
+        .itinerary-table th, .itinerary-table td {
+            border: 1px solid #ccc;
+            padding: 10px 8px;
+            text-align: center;
+        }
+        .itinerary-table th {
+            background: #f5f5f5;
+        }
+        .itinerary-table tr.added-row {
+            background: #f3f0ff;
+        }
+        .itinerary-actions {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 24px;
+        }
+        .cancel-btn {
+            background: #444;
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 40px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .cancel-btn:hover {
+            background: #222;
+        }
+        .finish-btn {
+            background: #009688;
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 40px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .finish-btn:hover {
+            background: #00695c;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Trip Calc</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="trip-estimator.html" class="navbar-dark-btn">Estimator</a></li>
+                <li><a href="Itinerary.html" class="navbar-dark-btn active">Itinerary</a></li>
+                <li><a href="CurrencyConversion.html" class="navbar-dark-btn">Currency</a></li>
+                <li><a href="index.html" class="navbar-dark-btn home-navbar-btn">Home</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="itinerary-card">
+            <div class="itinerary-title">Itinerary Planner</div>
+            <form class="itinerary-form" id="itinerary-form" onsubmit="return false;">
+                <label for="itinerary-date">Input Date :</label>
+                <input type="date" id="itinerary-date" required>
+                <label for="itinerary-time">Input Time :</label>
+                <input type="time" id="itinerary-time" required>
+                <label for="itinerary-activity">Input Activity :</label>
+                <input type="text" id="itinerary-activity" required>
+                <button class="itinerary-btn" onclick="addItinerary()">Add</button>
+            </form>
+            <table class="itinerary-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Activity</th>
+                    </tr>
+                </thead>
+                <tbody id="itinerary-list">
+                </tbody>
+            </table>
+            <div class="itinerary-actions">
+                <button class="cancel-btn" onclick="cancelItinerary()">Cancel</button>
+                <button class="finish-btn" onclick="finishItinerary()">Finish</button>
+            </div>
+        </div>
+    </main>
+    <footer id="contact">
+        <p>&copy; 2025 Trip Calc. All rights reserved.</p>
+    </footer>
+    <script>
+        function addItinerary() {
+            const date = document.getElementById('itinerary-date').value;
+            const time = document.getElementById('itinerary-time').value;
+            const activity = document.getElementById('itinerary-activity').value;
+            if (!date || !time || !activity) return;
+            const tbody = document.getElementById('itinerary-list');
+            const tr = document.createElement('tr');
+            tr.className = 'added-row';
+            tr.innerHTML = `<td>${date}</td><td>${time}</td><td>${activity}</td>`;
+            tbody.appendChild(tr);
+            document.getElementById('itinerary-form').reset();
+        }
+        function cancelItinerary() {
+            document.getElementById('itinerary-list').innerHTML = '';
+        }
+        function finishItinerary() {
+            alert('Itinerary saved!');
+        }
+    </script>
+</body>
+</html> 

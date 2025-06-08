@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In - Trip Calc</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .login-card {
+            background: #e0e0e0;
+            max-width: 900px;
+            margin: 30px auto 0 auto;
+            padding: 40px 30px 50px 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .login-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            margin-top: 0;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 2px #fff, 0 1px 0 #ccc;
+        }
+        .login-divider {
+            border: none;
+            border-top: 2px solid #888;
+            margin: 0 0 30px 0;
+        }
+        .login-label {
+            display: block;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin: 30px 0 10px 0;
+            text-align: center;
+        }
+        .login-input {
+            display: block;
+            margin: 0 auto 0 auto;
+            width: 50%;
+            font-size: 1.2rem;
+            padding: 10px;
+            border-radius: 3px;
+            border: 1px solid #888;
+            background: #fff;
+        }
+        .login-btn {
+            display: block;
+            margin: 40px auto 0 auto;
+            width: 220px;
+            font-size: 2rem;
+            font-weight: bold;
+            background: #6ec1e4;
+            color: #111;
+            border: none;
+            border-radius: 5px;
+            padding: 12px 0;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .login-btn:hover {
+            background: #2196F3;
+            color: #fff;
+        }
+        @media (max-width: 700px) {
+            .login-card { max-width: 98vw; padding: 20px 5px; }
+            .login-input { width: 95%; }
+            .login-btn { width: 95%; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Trip Calc</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="entry.html">Entry</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="trip-planner">
+        <div class="login-card">
+            <h2 class="login-title">Sign in</h2>
+            <hr class="login-divider">
+            <form>
+                <label for="email" class="login-label">Email</label>
+                <input type="email" id="email" name="email" class="login-input" required>
+                <label for="password" class="login-label">Password</label>
+                <input type="password" id="password" name="password" class="login-input" required>
+                <div style="display: flex; justify-content: center; gap: 16px; margin-top: 40px;">
+                    <button type="button" class="login-btn" onclick="window.location.href='account.html'" style="background: #bbb; color: #222;">Back</button>
+                    <button type="button" class="login-btn" onclick="window.location.href='index.html'" id="nextButton" disabled>Next</button>
+                </div>
+            </form>
+        </div>
+    </section>
+    <footer id="contact">
+        <p>&copy; 2025 Trip Calc. All rights reserved.</p>
+    </footer>
+    <script>
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const nextButton = document.getElementById('nextButton');
+
+        function checkInputs() {
+            if (emailInput.value && passwordInput.value) {
+                nextButton.disabled = false;
+            } else {
+                nextButton.disabled = true;
+            }
+        }
+
+        emailInput.addEventListener('input', checkInputs);
+        passwordInput.addEventListener('input', checkInputs);
+    </script>
+</body>
+</html> 

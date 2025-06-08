@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Conversion - Trip Calc</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .currency-card {
+            background: #e0e0e0;
+            max-width: 700px;
+            margin: 40px auto 0 auto;
+            padding: 40px 30px 50px 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .currency-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        .currency-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 18px;
+        }
+        .currency-form label {
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+        .currency-form input, .currency-form select {
+            padding: 8px 12px;
+            font-size: 1.1rem;
+            border-radius: 4px;
+            border: 1px solid #888;
+            width: 220px;
+        }
+        .currency-btn {
+            background: #7c4dff;
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 0;
+            width: 220px;
+            margin-top: 10px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .currency-btn:hover {
+            background: #512da8;
+        }
+        .currency-result {
+            margin-top: 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Trip Calc</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="trip-estimator.html" class="navbar-dark-btn">Estimator</a></li>
+                <li><a href="Itinerary.html" class="navbar-dark-btn">Itinerary</a></li>
+                <li><a href="CurrencyConversion.html" class="navbar-dark-btn active">Currency</a></li>
+                <li><a href="index.html" class="navbar-dark-btn home-navbar-btn">Home</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="currency-card">
+            <div class="currency-title">Currency Converter</div>
+            <form class="currency-form" id="currency-form" onsubmit="return false;">
+                <label for="amount">Amount</label>
+                <input type="text" id="amount" name="amount" pattern="[0-9]*" inputmode="numeric" required oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+                <label for="from-currency">From</label>
+                <select id="from-currency" name="from-currency" required>
+                    <option value="">Select Currency</option>
+                    <option value="USD">USD</option>
+                    <option value="IDR">IDR</option>
+                    <option value="THB">THB</option>
+                    <option value="MYR">MYR</option>
+                    <option value="SGD">SGD</option>
+                    <option value="VND">VND</option>
+                </select>
+                <label for="to-currency">To</label>
+                <select id="to-currency" name="to-currency" required>
+                    <option value="">Select Currency</option>
+                    <option value="USD">USD</option>
+                    <option value="IDR">IDR</option>
+                    <option value="THB">THB</option>
+                    <option value="MYR">MYR</option>
+                    <option value="SGD">SGD</option>
+                    <option value="VND">VND</option>
+                </select>
+                <button class="currency-btn" onclick="convertCurrency()">Convert</button>
+            </form>
+            <div class="currency-result" id="currency-result"></div>
+        </div>
+    </main>
+    <footer id="contact">
+        <p>&copy; 2025 Trip Calc. All rights reserved.</p>
+    </footer>
+    <script>
+        // Dummy conversion rates for demo
+        const rates = {
+            USD: { IDR: 16000, THB: 36, MYR: 4.7, SGD: 1.35, VND: 24500, USD: 1 },
+            IDR: { USD: 1/16000, THB: 36/16000, MYR: 4.7/16000, SGD: 1.35/16000, VND: 24500/16000, IDR: 1 },
+            THB: { USD: 1/36, IDR: 16000/36, MYR: 4.7/36, SGD: 1.35/36, VND: 24500/36, THB: 1 },
+            MYR: { USD: 1/4.7, IDR: 16000/4.7, THB: 36/4.7, SGD: 1.35/4.7, VND: 24500/4.7, MYR: 1 },
+            SGD: { USD: 1/1.35, IDR: 16000/1.35, THB: 36/1.35, MYR: 4.7/1.35, VND: 24500/1.35, SGD: 1 },
+            VND: { USD: 1/24500, IDR: 16000/24500, THB: 36/24500, MYR: 4.7/24500, SGD: 1.35/24500, VND: 1 },
+        };
+        function convertCurrency() {
+            const amount = parseFloat(document.getElementById('amount').value);
+            const from = document.getElementById('from-currency').value;
+            const to = document.getElementById('to-currency').value;
+            if (!amount || !from || !to) {
+                document.getElementById('currency-result').textContent = 'Please fill all fields.';
+                return;
+            }
+            const rate = rates[from][to];
+            const result = amount * rate;
+            document.getElementById('currency-result').textContent = `${amount} ${from} = ${result.toFixed(2)} ${to}`;
+        }
+    </script>
+</body>
+</html> 

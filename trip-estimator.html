@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip Calc - Trip Estimator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <h1>Trip Calc</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="trip-estimator.html" class="navbar-dark-btn active">Estimator</a></li>
+                <li><a href="Itinerary.html" class="navbar-dark-btn">Itinerary</a></li>
+                <li><a href="CurrencyConversion.html" class="navbar-dark-btn">Currency</a></li>
+                <li><a href="index.html" class="navbar-dark-btn home-navbar-btn">Home</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Trip Estimator Wizard -->
+    <section id="trip-planner">
+        <h3>Trip Estimator</h3>
+
+        <!-- Step Indicator -->
+        <div class="step-indicator">
+            <div id="step-1-indicator" class="active">Step 1</div>
+            <div id="step-2-indicator">Step 2</div>
+            <div id="step-3-indicator">Step 3</div>
+            <div id="step-4-indicator">Step 4</div>
+            <div id="step-5-indicator">Step 5</div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-bar">
+            <span id="progress-bar-fill" style="width: 0%"></span>
+        </div>
+
+        <!-- Flight Price Step -->
+        <div id="step-1" class="step active">
+            <h2>Step 1: Flight Details</h2>
+            <div class="form-group">
+                <label for="departure">Departure City:</label>
+                <select id="departure" onchange="updateFlightTimes()">
+                    <option value="">Select Departure City</option>
+                    <option value="Jakarta">Jakarta</option>
+                    <option value="Bangkok">Bangkok</option>
+                    <option value="Kuala Lumpur">Kuala Lumpur</option>
+                    <option value="Singapore">Singapore</option>
+                    <option value="Ho Chi Minh">Ho Chi Minh</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="destination">Destination City:</label>
+                <select id="destination" onchange="updateFlightTimes()">
+                    <option value="">Select Destination City</option>
+                    <option value="Jakarta">Jakarta</option>
+                    <option value="Bangkok">Bangkok</option>
+                    <option value="Kuala Lumpur">Kuala Lumpur</option>
+                    <option value="Singapore">Singapore</option>
+                    <option value="Ho Chi Minh">Ho Chi Minh</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="flight-time">Flight Time:</label>
+                <select id="flight-time" onchange="calculateFlightPrice()">
+                    <option value="">Select Flight Time</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="airline">Airline:</label>
+                <select id="airline" onchange="calculateFlightPrice()">
+                    <option value="">Select Airline</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="seat-class">Seat Class:</label>
+                <select id="seat-class" onchange="calculateFlightPrice()">
+                    <option value="">Select Seat Class</option>
+                    <option value="Economy">Economy</option>
+                    <option value="Business">Business</option>
+                    <option value="First">First</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="ticket-quantity">Number of Tickets:</label>
+                <input type="number" id="ticket-quantity" min="1" max="10" value="1" onchange="calculateFlightPrice()">
+            </div>
+
+            <div class="price-display">
+                <span>Total Price: </span>
+                <span id="flight-price-value">0</span>
+            </div>
+
+            <div class="button-group">
+                <button onclick="nextStep(2)">Next</button>
+            </div>
+        </div>
+
+        <!-- Accommodation Price Step -->
+        <div id="step-2" class="step" style="display: none;">
+            <h4>Step 2: Accommodation Estimation</h4>
+            <form id="accommodation-form">
+                <label for="accommodation-type">Accommodation Type:</label>
+                <select id="accommodation-type" onchange="updateRoomOptions()">
+                    <option value="">Select Accommodation Type</option>
+                    <option value="hotel">Hotel</option>
+                    <option value="hostel">Hostel</option>
+                    <option value="apartment">Apartment</option>
+                </select>
+
+                <div id="room-options" style="display: none;">
+                    <label for="room-class">Room Type:</label>
+                    <select id="room-class" onchange="calculateAccommodationPrice()">
+                        <option value="">Select Room Type</option>
+                    </select>
+
+                    <label for="room-quantity">Number of Rooms:</label>
+                    <input type="number" id="room-quantity" min="1" max="5" value="1" onchange="calculateAccommodationPrice()">
+
+                    <label for="nights">Number of Nights:</label>
+                    <input type="number" id="nights" min="1" max="30" value="1" onchange="calculateAccommodationPrice()">
+                </div>
+
+                <div id="accommodation-price">
+                    <!-- Accommodation price will be displayed here -->
+                    <p>Accommodation Price: <span id="accommodation-price-value">0</span></p>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" onclick="nextStep(3)">Next</button>
+                    <button onclick="previousStep(1)" class="nav-button back-button">Back</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Activity Price Step -->
+        <div id="step-3" class="step" style="display: none;">
+            <h4>Step 3: Activity Estimation</h4>
+            <form id="activity-form" onsubmit="return false;">
+                <div id="activity-list">
+                    <!-- Activities will be dynamically added here -->
+                </div>
+                <button type="button" onclick="addActivity()">Add Activity</button>
+                <div id="activity-price">
+                    <p>Activity Price: <span id="activity-price-value">0</span></p>
+                </div>
+                <div class="button-group">
+                    <button type="button" onclick="nextStep(4)">Next</button>
+                    <button onclick="previousStep(2)" class="nav-button back-button">Back</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Transportation Price Step -->
+        <div id="step-4" class="step" style="display: none;">
+            <h4>Step 4: Transportation estimation</h4>
+            <form id="transportation-form" onsubmit="return false;">
+                <label for="transport-main-type">What type of transportation will you use?</label>
+                <select id="transport-main-type" onchange="updateTransportMainType()">
+                    <option value="">Select Option</option>
+                    <option value="rent">Rent a Car</option>
+                    <option value="public">Public Transportations / Others</option>
+                </select>
+                <div id="car-options-extended" style="display: none;">
+                    <div class="form-group">
+                        <label for="car-type-detail">Car Type:</label>
+                        <select id="car-type-detail" onchange="calculateCarRentalPrice()">
+                            <option value="">Select Car Type</option>
+                            <option value="sedan">Sedan (fits 4 people)</option>
+                            <option value="suv">SUV (fits 6 people)</option>
+                            <option value="van">Van (fits 10 people)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="car-days">Number of Days:</label>
+                        <input type="number" id="car-days" min="1" max="30" value="1" onchange="calculateCarRentalPrice()">
+                    </div>
+                    <div class="form-group">
+                        <label for="car-quantity">Number of Cars:</label>
+                        <input type="number" id="car-quantity" min="1" max="10" value="1" onchange="calculateCarRentalPrice()">
+                    </div>
+                    <div id="car-rental-price">
+                        <p>Car Rental Price: <span id="car-rental-price-value">0</span></p>
+                    </div>
+                </div>
+                <div id="public-transport-message" style="display: none; margin: 15px 0; color: #555; font-style: italic;">
+                    Public transportation/others will not be counted in your budget.
+                </div>
+                <div class="button-group">
+                    <button type="button" onclick="handleTransportNext()">Next</button>
+                    <button onclick="previousStep(3)" class="nav-button back-button">Back</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Total Estimation Step -->
+        <div id="total-estimate" class="step" style="display: none;">
+            <h4>Total Trip Estimate:</h4>
+            <div id="summary-details" class="summary-details" style="margin-bottom: 20px;"></div>
+            <div id="total-price">
+                <!-- Final trip estimate will be displayed here -->
+                <p>Total Trip Price: $<span id="total-price-value">0</span></p>
+            </div>
+            <div class="button-group">
+                <button onclick="previousStep(4)" class="nav-button back-button">Back</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Trip Calc. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

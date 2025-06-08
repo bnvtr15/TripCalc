@@ -1,0 +1,562 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Arial', sans-serif;
+    background-color: #F0F0F0;
+    color: #333333;
+}
+
+/* Header */
+header {
+    background-color: #FFFFFF;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #E0E0E0;
+}
+
+header .logo h1 {
+    color: #4CAF50;
+    font-size: 2em;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav ul li {
+    margin: 0 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #2196F3;
+    font-weight: bold;
+}
+
+nav ul li a.navbar-dark-btn {
+    background: #888;
+    color: #fff !important;
+    padding: 10px 22px;
+    border-radius: 6px;
+    margin: 0 6px;
+    transition: background 0.2s, color 0.2s;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+}
+
+nav ul li a.navbar-dark-btn:hover {
+    background: #555;
+    color: #2196F3 !important;
+}
+
+nav ul li a.navbar-dark-btn.active {
+    background: #555;
+    color: #2196F3 !important;
+}
+
+nav ul li a.navbar-dark-btn.home-navbar-btn {
+    background: #4CAF50;
+    color: #fff !important;
+}
+
+nav ul li a.navbar-dark-btn.home-navbar-btn:hover,
+nav ul li a.navbar-dark-btn.home-navbar-btn.active {
+    background: #388e3c;
+    color: #fff !important;
+}
+
+/* Hero Section */
+#hero {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    min-height: 100vh;
+    background: url('./images/view.jpg') center center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#hero::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.4); /* dark overlay for contrast */
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    color: #fff;
+    text-align: center;
+    width: 100%;
+}
+
+#hero h2 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+#hero p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.cta-button, .learn-more-button {
+    margin: 10px 10px 0 10px;
+    padding: 12px 32px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    background: #2196F3;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.3s;
+    z-index: 2;
+    position: relative;
+}
+
+.cta-button:hover, .learn-more-button:hover {
+    background: #1976D2;
+}
+
+#hero .subheading {
+    font-size: 1.2em;
+    color: #F0F0F0;
+    margin-top: 10px;
+    font-weight: lighter;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Features Section */
+#features {
+    text-align: center;
+    padding: 50px 20px;
+    background-color: #FFFFFF;
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: space-evenly; 
+}
+
+#features h3 {
+    font-size: 2.5em;
+    margin-bottom: 40px;
+    width: 100%; 
+}
+
+.feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 30px;
+    width: 18%;  
+    min-height: 250px;  
+    padding: 20px;
+    text-align: center;
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    box-sizing: border-box;  
+}
+
+.feature:hover {
+    transform: scale(1.05);
+}
+
+.feature img {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 15px;
+}
+
+.feature h4 {
+    font-size: 1.5em;
+    color: #4CAF50; 
+}
+
+.feature p {
+    font-size: 1.1em;
+    color: #555555; 
+}
+
+/* Footer */
+footer {
+    flex-shrink: 0;
+    width: 100%;
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    position: relative;
+    bottom: 0;
+}
+
+footer p {
+    font-size: 1em;
+}
+
+@media (max-width: 768px) {
+    
+    header {
+        padding: 15px 20px;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    header nav ul {
+        flex-direction: column;
+        margin-top: 15px;
+    }
+
+    header nav ul li {
+        margin: 10px 0;
+    }
+
+    /* Hero Section */
+    #hero h2 {
+        font-size: 2.5em;
+    }
+
+    #hero p {
+        font-size: 1.1em;
+    }
+
+    #hero button {
+        padding: 12px 25px;
+        font-size: 1em;
+    }
+
+    /* Features Section */
+    .feature {
+        width: 45%;
+        margin-bottom: 20px;
+    }
+
+    .feature h4 {
+        font-size: 1.3em;
+    }
+
+    /* Footer */
+    footer p {
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Hero Section */
+    #hero h2 {
+        font-size: 2em;
+    }
+
+    /* Features Section */
+    .feature {
+        width: 90%;
+        margin-bottom: 20px;
+    }
+
+    .feature h4 {
+        font-size: 1.2em;
+    }
+
+    .feature p {
+        font-size: 1em;
+    }
+
+    /* Footer */
+    footer p {
+        font-size: 0.8em;
+    }
+}
+
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body and Page Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #F0F0F0;
+    color: #333333; 
+}
+
+/* Header */
+header {
+    background-color: #FFFFFF; 
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #E0E0E0;
+}
+
+header .logo h1 {
+    color: #4CAF50;
+    font-size: 24px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+}
+
+/* Trip Estimator Steps */
+#trip-planner {
+    margin: 20px 0;
+}
+
+/* Step Indicator */
+.step-indicator {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.step-indicator div {
+    padding: 10px;
+    background-color: #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #007BFF;
+    cursor: pointer;
+}
+
+.step-indicator .active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* Progress Bar */
+.progress-bar {
+    height: 10px;
+    background-color: #f0f0f0;
+    width: 100%;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.progress-bar span {
+    display: block;
+    height: 100%;
+    background-color: #4CAF50;
+    width: 0%; 
+    border-radius: 5px;
+}
+
+/* Step Forms and Prices */
+.step {
+    margin-top: 20px;
+}
+
+h4 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+select {
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 16px;
+    border-radius: 5px;
+    width: 100%;
+}
+
+label {
+    font-size: 18px;
+    color: #555;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+/* Price Display */
+#flight-price, #accommodation-price, #transport-price, #activity-price, #total-price {
+    font-size: 18px;
+    margin-top: 15px;
+    font-weight: bold;
+    color: #333;
+}
+
+#total-price {
+  font-size: 2em;
+  font-weight: bold;
+  color: #2196F3;
+  margin-top: 20px;
+}
+#total-price-value {
+  font-size: 1.2em;
+  color: #2196F3;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .step-indicator {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .step-indicator div {
+        margin-bottom: 10px;
+    }
+
+    select, button {
+        width: 100%;
+    }
+}
+
+/* Navigation Buttons */
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    justify-content: flex-start;
+}
+
+.nav-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.back-button {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.back-button:hover {
+    background-color: #e0e0e0;
+}
+
+.home-button {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.home-button:hover {
+    background-color: #45a049;
+}
+
+/* Style the Next button to match */
+.button-group button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    background-color: #2196F3;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.button-group button:hover {
+    background-color: #1976D2;
+}
+
+#trip-planner, main, .content {
+    flex: 1 0 auto;
+}
+
+.signin-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    margin-top: 10px;
+}
+
+.summary-details {
+  font-size: 1.3em;
+  line-height: 1.7;
+  color: #222;
+}
+.summary-details h5 {
+  font-size: 1.4em;
+  margin-bottom: 10px;
+}
+.summary-details ul {
+  margin-bottom: 0.5em;
+}
+.summary-details li {
+  margin-bottom: 0.5em;
+}
+
+.expense-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 1.2em;
+}
+.expense-table th, .expense-table td {
+  border: 1px solid #bbb;
+  padding: 10px 12px;
+  text-align: left;
+}
+.expense-table th {
+  background: #f0f0f0;
+  font-size: 1.15em;
+}
+.expense-table tr:nth-child(even) {
+  background: #fafafa;
+}
