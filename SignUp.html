@@ -99,7 +99,7 @@
                 <div id="errorMessage" style="color: red; text-align: center; margin-top: 10px;"></div>
                 <div style="display: flex; justify-content: center; gap: 16px; margin-top: 40px;">
                     <button type="button" class="login-btn" onclick="window.location.href='account.html'" style="background: #bbb; color: #222;">Back</button>
-                    <button type="button" class="login-btn" id="nextButton">Next</button>
+                    <button type="button" class="login-btn" id="nextButton" disabled>Next</button>
                 </div>
             </form>
         </div>
@@ -108,69 +108,57 @@
         <p>&copy; 2025 Trip Calc. All rights reserved.</p>
     </footer>
     <script>
-        const usernameInput = document.getElementById('username');
-        const emailInput = document.getElementById('email');
-        const passwordInput = document.getElementById('password');
-        const repasswordInput = document.getElementById('repassword');
-        const nextButton = document.getElementById('nextButton');
-        const errorMessage = document.getElementById('errorMessage');
+        document.addEventListener("DOMContentLoaded", function () {
+            const usernameInput = document.getElementById('username');
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+            const repasswordInput = document.getElementById('repassword');
+            const nextButton = document.getElementById('nextButton');
 
-        // Disable the Next button by default
-        nextButton.disabled = true;
+            function checkInputs() {
+                const filled =
+                    usernameInput.value &&
+                    emailInput.value &&
+                    passwordInput.value &&
+                    repasswordInput.value;
 
-        function validateForm() {
-            // Check if all fields are filled
-            if (!usernameInput.value || !emailInput.value || !passwordInput.value || !repasswordInput.value) {
-                errorMessage.textContent = 'Please fill in all fields';
-                nextButton.disabled = true;
-                return false;
+                nextButton.disabled = !filled;
             }
 
-            // Check if passwords match
-            if (passwordInput.value !== repasswordInput.value) {
-                errorMessage.textContent = 'Passwords do not match!';
-                nextButton.disabled = true;
-                return false;
-            }
+            function validateAndSubmit() {
+                const errors = [];
 
-            // If everything is valid, proceed
-            errorMessage.textContent = '';
-            nextButton.disabled = false;
-            return true;
-        }
-
-        // Add event listener to the Next button
-        nextButton.addEventListener('click', function(e) {
-            e.preventDefault();
-            if (validateForm()) {
-                window.location.href = 'index.html';
-            }
-        });
-
-        // Real-time validation as user types
-        function checkPasswords() {
-            if (passwordInput.value && repasswordInput.value) {
-                if (passwordInput.value !== repasswordInput.value) {
-                    errorMessage.textContent = 'Passwords do not match!';
-                    nextButton.disabled = true;
-                } else {
-                    errorMessage.textContent = '';
-                    // Only enable the button if all fields are filled
-                    if (usernameInput.value && emailInput.value) {
-                        nextButton.disabled = false;
-                    }
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailPattern.test(emailInput.value.trim())) {
+                    errors.push("Format email tidak valid.");
                 }
-            } else {
-                errorMessage.textContent = '';
-                nextButton.disabled = true;
-            }
-        }
 
-        // Add input event listeners to all fields
-        usernameInput.addEventListener('input', validateForm);
-        emailInput.addEventListener('input', validateForm);
-        passwordInput.addEventListener('input', checkPasswords);
-        repasswordInput.addEventListener('input', checkPasswords);
+                if (passwordInput.value.length < 6) {
+                    errors.push("Password harus minimal 6 karakter.");
+                }
+
+                if (passwordInput.value !== repasswordInput.value) {
+                    errors.push("Konfirmasi password tidak cocok.");
+                }
+
+                if (errors.length > 0) {
+                    alert(errors.join("\n"));
+                } else {
+                    alert("Pendaftaran berhasil!");
+                    window.location.href = 'index.html';
+                }
+            }
+
+            usernameInput.addEventListener('input', checkInputs);
+            emailInput.addEventListener('input', checkInputs);
+            passwordInput.addEventListener('input', checkInputs);
+            repasswordInput.addEventListener('input', checkInputs);
+
+            nextButton.addEventListener('click', function (e) {
+                e.preventDefault();
+                validateAndSubmit();
+            });
+        });
     </script>
 </body>
 </html> 
