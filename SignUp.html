@@ -87,7 +87,7 @@
         <div class="login-card">
             <h2 class="login-title">Sign up</h2>
             <hr class="login-divider">
-            <form>
+            <form id="signupForm">
                 <label for="username" class="login-label">Username</label>
                 <input type="text" id="username" name="username" class="login-input" required>
                 <label for="email" class="login-label">Email</label>
@@ -96,9 +96,10 @@
                 <input type="password" id="password" name="password" class="login-input" required>
                 <label for="repassword" class="login-label">Re-enter Password</label>
                 <input type="password" id="repassword" name="repassword" class="login-input" required>
+                <div id="errorMessage" style="color: red; text-align: center; margin-top: 10px;"></div>
                 <div style="display: flex; justify-content: center; gap: 16px; margin-top: 40px;">
                     <button type="button" class="login-btn" onclick="window.location.href='account.html'" style="background: #bbb; color: #222;">Back</button>
-                    <button type="button" class="login-btn" onclick="window.location.href='index.html'" id="nextButton" disabled>Next</button>
+                    <button type="button" class="login-btn" id="nextButton">Next</button>
                 </div>
             </form>
         </div>
@@ -112,19 +113,64 @@
         const passwordInput = document.getElementById('password');
         const repasswordInput = document.getElementById('repassword');
         const nextButton = document.getElementById('nextButton');
+        const errorMessage = document.getElementById('errorMessage');
 
-        function checkInputs() {
-            if (usernameInput.value && emailInput.value && passwordInput.value && repasswordInput.value) {
-                nextButton.disabled = false;
+        // Disable the Next button by default
+        nextButton.disabled = true;
+
+        function validateForm() {
+            // Check if all fields are filled
+            if (!usernameInput.value || !emailInput.value || !passwordInput.value || !repasswordInput.value) {
+                errorMessage.textContent = 'Please fill in all fields';
+                nextButton.disabled = true;
+                return false;
+            }
+
+            // Check if passwords match
+            if (passwordInput.value !== repasswordInput.value) {
+                errorMessage.textContent = 'Passwords do not match!';
+                nextButton.disabled = true;
+                return false;
+            }
+
+            // If everything is valid, proceed
+            errorMessage.textContent = '';
+            nextButton.disabled = false;
+            return true;
+        }
+
+        // Add event listener to the Next button
+        nextButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (validateForm()) {
+                window.location.href = 'index.html';
+            }
+        });
+
+        // Real-time validation as user types
+        function checkPasswords() {
+            if (passwordInput.value && repasswordInput.value) {
+                if (passwordInput.value !== repasswordInput.value) {
+                    errorMessage.textContent = 'Passwords do not match!';
+                    nextButton.disabled = true;
+                } else {
+                    errorMessage.textContent = '';
+                    // Only enable the button if all fields are filled
+                    if (usernameInput.value && emailInput.value) {
+                        nextButton.disabled = false;
+                    }
+                }
             } else {
+                errorMessage.textContent = '';
                 nextButton.disabled = true;
             }
         }
 
-        usernameInput.addEventListener('input', checkInputs);
-        emailInput.addEventListener('input', checkInputs);
-        passwordInput.addEventListener('input', checkInputs);
-        repasswordInput.addEventListener('input', checkInputs);
+        // Add input event listeners to all fields
+        usernameInput.addEventListener('input', validateForm);
+        emailInput.addEventListener('input', validateForm);
+        passwordInput.addEventListener('input', checkPasswords);
+        repasswordInput.addEventListener('input', checkPasswords);
     </script>
 </body>
 </html> 
